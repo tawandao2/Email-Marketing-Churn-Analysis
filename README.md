@@ -65,11 +65,24 @@ By filtering for active subscribers with zero opens over 5+ sent emails, this ta
 
 By aggregating qualitative feedback into a structured distribution, this analysis identifies Privacy Concerns (22.03%) and Content Irrelevance (20.12%) as the primary drivers of churn. This technical transition from raw text to statistical insights reveals that subscriber loss is primarily driven by trust and targeting issues rather than email frequency. These findings provide the business with a clear mandate to prioritize data-transparency and content segmentation to protect the existing subscriber base.
 
- /tmp/ipython-input-2587080778.py:40: FutureWarning:
+### Executive Dashboard Overview
 
+<img width="892" height="204" alt="image" src="https://github.com/user-attachments/assets/f38209c2-4afb-4be5-9725-e686a0aa9225" />
 
+<img width="1199" height="666" alt="image" src="https://github.com/user-attachments/assets/2f7d8204-837d-49f2-8ae7-5281a32f7bc1" />
 
-Passing `palette` without assigning `hue` is deprecated and will be removed in v0.14.0. Assign the `x` variable to `hue` and set `legend=False` for the same effect.
+The analysis of 30,000 sent emails reveals a program-wide churn baseline of 5.05%, with subscribers maintaining an average tenure of 148 days before disengaging. Data visualization highlights that Promotional campaigns are the highest risk, driving a 5.36% unsubscribe rate, which is significantly higher than the 4.82% seen in Newsletters. Root cause analysis indicates that these exits are primarily fueled by Privacy concerns (22.03%) and Content Irrelevance (20.12%), rather than simple email frequency. By identifying specific "at-risk" users who have zero opens over multiple campaigns, such as User ID 761 and 4374, the business can now implement targeted win-back strategies before subscribers reach the critical four-month churn threshold.
+
+### Strategic Recommendations
+1. Prioritize Privacy and Data Transparency
+With Privacy concerns being the leading cause of churn (22.03%), the marketing team should implement a "Privacy-First" communication strategy. This includes adding clear data-usage disclosures in the footer of every email and creating a dedicated "Privacy Promise" banner for high-risk promotional campaigns to rebuild subscriber trust.
+
+2. Implement Automated "Win-Back" Flows at 120 Days
+Since the average subscriber tenure is 148 days, the most critical window for retention is the four-month mark. I recommend launching an automated re-engagement sequence at day 120 specifically for users showing "silent disengagement"—such as User IDs 761 and 4374—to offer incentives or content preferences before they officially churn.
+
+3. Optimize Promotional Frequency and Relevance
+Because Promotional content triggers the highest churn rate (5.36%), the business should move away from generic mass blasts in favor of segmented targeting. By applying the lessons from the more successful Newsletter category (4.82% churn), the team can decrease churn by 11% by ensuring promotions are tailored to individual purchase history and interests.
+
 
 
 

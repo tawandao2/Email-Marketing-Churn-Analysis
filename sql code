@@ -1,0 +1,51 @@
+--What is the overall unsubscribe rate?
+-- This query calculates the overall churn baseline for the entire email program.
+SELECT 
+    COUNT(unsubscribe_id) AS total_unsubscribes,
+    (SELECT SUM(total_sent) FROM Campaign_Performance) AS total_emails_sent,
+    ROUND(COUNT(unsubscribe_id) * 100.0 / (SELECT SUM(total_sent) FROM Campaign_Performance), 2) || '%' AS overall_unsubscribe_rate
+FROM Unsubscribes;
+
+
+--Do certain campaign categories (promotion, newsletter, re-engagement, announcement) have higher unsubscribe rates?"
+
+SELECT 
+    c.category,
+    SUM(cp.total_unsubscribes) AS category_unsubscribes,
+    SUM(cp.total_sent) AS category_emails_sent,
+    ROUND(SUM(cp.total_unsubscribes) * 100.0 / SUM(cp.total_sent), 2) || '%' AS unsubscribe_rate
+FROM Campaigns c
+JOIN Campaign_Performance cp ON c.campaign_id = cp.campaign_id
+GROUP BY c.category
+ORDER BY (SUM(cp.total_unsubscribes) * 1.0 / SUM(cp.total_sent)) DESC;
+
+
+--How long after signup do users typically unsubscribe? 
+SELECT 
+    ROUND(AVG(julianday(u.unsubscribe_date) - julianday(us.signup_date)), 0) AS avg_days_to_unsubscribe
+FROM Unsubscribes u
+JOIN Users us ON u.user_id = us.user_id;
+
+--Who are the "at-risk" users? 
+SELECT 
+    e.user_id,
+    COUNT(e.engagement_id) AS total_emails_received,
+    SUM(e.opened) AS total_opens
+FROM Email_Engagement e
+LEFT JOIN Unsubscribes u ON e.user_id = u.user_id
+WHERE u.user_id IS NULL 
+GROUP BY e.user_id
+HAVING COUNT(e.engagement_id) >= 5 
+   AND SUM(e.opened) = 0
+LIMIT 10;
+
+
+--Question #5: "Which unsubscribe reasons are the most common?"
+SELECT 
+    reason, 
+    COUNT(unsubscribe_id) AS total_count,
+    ROUND(COUNT(unsubscribe_id) * 100.0 / (SELECT COUNT(*) FROM Unsubscribes), 2) || '%' AS percentage
+FROM Unsubscribes
+WHERE reason IS NOT NULL
+GROUP BY reason
+ORDER BY total_count DESC;
